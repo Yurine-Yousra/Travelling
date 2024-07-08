@@ -1,0 +1,8 @@
+.my_btn{
+    border-radius: 50px;
+    background-color: var(--secondary-color);
+    padding: 0.5rem;
+    border: none;
+    color: white;
+    font-family: var(--subtitle-font-name);
+}
