@@ -89,6 +89,7 @@ const GetFeaturedTours = async(req , res) => {
     
 }
 
+
 const getTourCount = async(req , res) => {
     try{
         const tourCount = await Tour.estimatedDocumentCount()
