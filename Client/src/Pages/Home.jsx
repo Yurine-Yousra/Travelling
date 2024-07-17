@@ -25,7 +25,7 @@ const Home = () => {
                     <h1>
                         Traveling opens the doors tp creating {" "} <span className="highlight">memories</span>
                     </h1>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas, voluptate. Deleniti qui fugiat similique odio nobis doloremque quasi animi illo id sit, architecto praesentium numquam quos, iusto enim blanditiis soluta?</p>
+                    <p>Welcome to Travel The World, your gateway to unforgettable travel experiences. Discover a curated selection of tours tailored to diverse interests, book with ease, and connect with a community of passionate travelers</p>
                 </div>
                 </Col>
 
@@ -58,7 +58,7 @@ const Home = () => {
                     <h5 className="services__subtitle">What we serve</h5>
                     <h2 className="services__title">We offer our best services</h2>
                     </Col>
-                    <Col lg='3' >
+                    <Col lg='9'   mg="6" sm="12"  >
                     <ServiceList  />
                     </Col>
                 </Row>
@@ -107,7 +107,7 @@ const Home = () => {
                     </Col>
                     <Col lg='6'>
                     <div className="experience__img">
-                            <img src={World} alt="image" />
+                            <img src={World} style={{"height":"100%"}}alt="image" />
                         </div>
                     </Col>
                 </Row>

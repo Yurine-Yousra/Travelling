@@ -1,24 +1,50 @@
-import  { useState } from 'react';
+import  { useState, useContext } from 'react';
 import { Container, Row, Col, Form, FormGroup, Button } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Login.css';
-import LoginImg from '../assets/besbes/businessman-character-avatar-isolated.png';
+import LoginImg from '../assets/besbes/6333040.jpg';
+import { AuthContext } from "../context/AuthContext";
 
 const Register = () => {
     const [credentials, setCredentials] = useState({
-        username : '' ,
+        username: '',
         email: '',
-        password: ''
+        password: '',
+        role:''
     });
+
+    const navigate = useNavigate();
+    const { dispatch } = useContext(AuthContext);
 
     const handleChange = (e) => {
         setCredentials(prev => ({ ...prev, [e.target.id]: e.target.value }));
     };
 
-    const handleClick = (e) => {
+    const handleClick = async (e) => {
         e.preventDefault();
-        // Handle login logic here
-        console.log(credentials); // Example: Log credentials to console
+        
+        try {
+            const res = await fetch(`http://localhost:8000/users/CreateUser`, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(credentials)
+            });
+
+            const result = await res.json();
+
+            if (!res.ok) {
+                throw new Error(result.message);
+            }
+
+            dispatch({ type: "REGISTER_SUCCESS" });
+            navigate(`/login`);
+            alert(result.message)
+        } catch (err) {
+            console.log(err);
+            alert(err.message);
+        }
     };
 
     return (
@@ -36,22 +62,21 @@ const Register = () => {
                                 </div>
                                 <h2>Register</h2>
                                 <Form onSubmit={handleClick}>
-                                <FormGroup>
-                                        <input type="email" placeholder='Username' required id="username" value={credentials.email} onChange={handleChange} />
-                                    </FormGroup> 
-
-
+                                    <FormGroup>
+                                        <input type="text" placeholder='Username' required id="username" value={credentials.username} onChange={handleChange} />
+                                    </FormGroup>
                                     <FormGroup>
                                         <input type="email" placeholder='Email' required id="email" value={credentials.email} onChange={handleChange} />
                                     </FormGroup>
-
                                     <FormGroup>
                                         <input type="password" placeholder='Password' required id="password" value={credentials.password} onChange={handleChange} />
                                     </FormGroup>
-
-                                    <Button className='btn secondary__btn' id='coucou' type='submit'>Register</Button>
+                                    <FormGroup>
+                                        <input type="text" placeholder='role' required id="role" value={credentials.role} onChange={handleChange} />
+                                    </FormGroup>
+                                    <Button className='btn secondary__btn' type='submit'>Register</Button>
                                 </Form>
-                                <p>Already  have an account? <Link to='/login'>Login </Link></p>
+                                <p>Already have an account? <Link to='/login'>Login</Link></p>
                             </div>
                         </div>
                     </Col>

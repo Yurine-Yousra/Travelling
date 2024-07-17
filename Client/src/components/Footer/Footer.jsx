@@ -1,6 +1,6 @@
 import {Container , Row , Col , ListGroup , ListGroupItem} from 'reactstrap'
 import {Link} from 'react-router-dom'
-import logo from "../../assets/logo.png"
+import logo from '../../assets/besbes/outline-airplain-illustration.png'
 import './Footer.css'
 
 const Footer = () => {
@@ -21,10 +21,7 @@ const Footer = () => {
     ] 
     const nav__links1 = [
    
-        {
-            path : '/gallery',
-            display : 'Gallery'
-        },
+        
         {
             path : '/login',
             display : 'Login'
@@ -74,7 +71,7 @@ const Footer = () => {
                 </Col>
 
                 <Col lg='3' >
-                <h5 className="footer__link-title">Quicl Links</h5>
+                <h5 className="footer__link-title">Quick Links</h5>
                 <ListGroup className='footer__quick-links'>
                     {nav__links1.map((item , index) => (
                         <ListGroupItem key={index} className='ps-0 border-0'>

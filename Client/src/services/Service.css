@@ -1,39 +1,39 @@
-.service__items{
-    padding: 1rem;
-    border-bottom: 1px solid #faa86586;
-    border-right : 1px solid #faa86586;
-    border-radius: 0.5rem;
-    width: max-content;
-    
-}
-.hellohello {
+.services {
+    width: 100%;
+    justify-content: center;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
-    gap: 2rem;
 }
-.service__img {
-    height: 50px;
-    width: 50px;
-    border-radius: 50px;
-    background: var(--secondary-color);
-    padding: 0.5rem;
+
+.services .service__items {
+    padding: 1rem;
+    border: 1px solid #faa86586;
+    border-radius: 0.5rem;
+    height: 372px;
+    max-width: 250px; /* Adjust max-width as per your design */
+    text-align: start;
     margin-bottom: 1rem;
-    line-height: 50px;
-}
-.service__img img{
-    width: 100%;
 }
 
-.service__item h5{
+.services .service__items span {
+    display: inline-block;
+    padding: 0.7rem;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+
+}
+
+.services .service__items span i {
+    color: white;
     font-size: 1.1rem;
-    font-weight: 500;
 }
 
-.service__item p{
-    font-size: 0.9rem;
-    color: var(--secondary-color);
+@media only screen and (max-width: 992px) {
+    .services .d-flex {
+        flex-direction: column;
+        align-items: center;
+    }
 }
-    
-    

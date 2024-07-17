@@ -6,6 +6,7 @@ import Login from '../Pages/Login';
 import Register from '../Pages/Register';
 import SearchResultList from '../Pages/SearchResultList';
 import ThankYou from '../Pages/ThankYou'
+import About from "../Pages/About";
 
 const Routers = () => {
     return (
@@ -14,11 +15,13 @@ const Routers = () => {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/tours" element={<Tours />} />
-            <Route path="/tours/:id" element={<TourDetails />} />
+            <Route path="/tours/tour/:id" element={<TourDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/tours/search" element={<SearchResultList />} />
             <Route path='/thank-you' element={<ThankYou />}></Route>
+            <Route path='/about' element={<About />} />
+
         </Routes>
     );
 }

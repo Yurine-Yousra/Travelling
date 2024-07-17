@@ -1,11 +1,9 @@
-import TourCard from "../../shared/TourCard";
 import { Col } from 'reactstrap';
 import useFetch from '../../hooks/useFetch';
-import { BASE_URL } from '../../utils/config';
+import TourCard from "../../shared/TourCard";
 
 const FeaturedTours = () => {
-    const { data: featuredTours, error, loading } = useFetch(`${BASE_URL}/tours/featuredTours`);
-    console.log(featuredTours)
+    const { data: featuredTours, error, loading } = useFetch(`http://localhost:8000/tours/featured`);
 
     if (loading) {
         return <p>Loading...</p>; // Display a loading indicator while fetching data
@@ -17,8 +15,8 @@ const FeaturedTours = () => {
 
     return (
         <>
-            {featuredTours.map((tour) => (
-                <Col lg='3' className='mb-4' key={tour._id}>
+            {featuredTours && featuredTours.map((tour) => (
+                <Col lg='3' md='4' sm='12' className='mb-4' key={tour._id}>
                     <TourCard tour={tour}></TourCard>
                 </Col>
             ))}

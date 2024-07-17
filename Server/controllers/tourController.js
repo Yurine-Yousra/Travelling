@@ -1,17 +1,19 @@
 const Tour = require('../Models/Tour')
 
- const CreateTour = async(req , res) => {
-        const newTour = new Tour(req.body)
+const CreateTour = async(req , res) => {
+    const newTour = new Tour(req.body)
 
-        try{
-            const savedTour = await newTour.save()
-            res.status(200).json({succes:true , message:'Succesfully created' , data : savedTour})
-        }
-        catch(err){
-            res.status(500).json({succes:false,message:'Fialed to create'})
-            console.log(err)
-        }
+    try{
+        const savedTour = await newTour.save()
+        res.status(200).json({succes:true , message:'Succesfully created' , data : savedTour})
+    }
+    catch(err){
+        res.status(500).json({succes:false,message:'Fialed to create'})
+        console.log(err)
+    }
 }
+
+
 
 const UpdateTour = async(req , res) => {
     try{
@@ -26,6 +28,7 @@ const UpdateTour = async(req , res) => {
     }
 }
 
+
 const DeleteTour = async(req , res) => {
     try{
         const id = req.params.id
@@ -38,75 +41,63 @@ const DeleteTour = async(req , res) => {
     }
 }
 
-const GetSingleTour = async(req , res) => {
+const SingleTour = async(req , res) => {
     try{
-        const id = req.params.id
-        const TheTour = await Tour.findById(id).populate('reviews')
-        res.status(200).json({succes : true , message : "Succesfully found" , data : TheTour})
+        const {id} = req.params
+        const tour = await Tour.findById(id).populate('reviews')
+        res.status(200).json({succes:true, message:"tour found" , data:tour})
     }
     catch(err){
         console.log(err)
-        res.status(500).json({succes : false , message : "Failed to find the tour"})
+        res.status(500).json({succes:false , messgae:"failed to find the tour"})
     }
 }
 
-const GetAllTours = async(req , res) => {
-    const page = parseInt(req.query.page)
-    console.log(page)
+
+
+const  Tours = async(req ,res) => {
     try{
-        const AllTours = await Tour.find({}).populate('reviews').skip(page *8 ).limit(8)
-        res.status(200).json({succes : true , message : "Succesfully all tours found" , data : AllTours})
-    }
-    catch(err){
-        console.log(err)
-        res.status(500).json({succes : false , message : "Failed to load the tours"})
-
-    }
+        const tours = await Tour.find({}).populate('reviews')
+        res.status(200).json({succes:true , message :"all tours loaded" , data:tours})
+        }
+        catch(err) {
+            console.log(err)
+            res.status(500).json({succes:false , message:"failed to load all tours"})
+        }
 }
 
-const GetTourBySearch = async(req , res) => {
+const TourSearched = async(req , res) => {
     const city = new RegExp(req.query.city , 'i')
     const distance = parseInt(req.query.distance)
     const maxGroupSize = parseInt(req.query.maxGroupSize)
-    try{
-        const tours = await Tour.find({city , distance :{$gte:distance} , maxGroupSize :{$gte:maxGroupSize} }).populate('reviews')
-        res.status(200).json({succes : true , message : "Succesfully all tours found" , data : tours})
+
+    try {
+        const tours = await Tour.find({city , distance : {$gte:distance} , maxGroupSize : {$gte :maxGroupSize}})
+        res.status(200).json({succes:true , mesggae:"loaded succesfully" , data :tours})
+
     }
     catch(err) {
         console.log(err)
-        res.status(500).json({succes : false , message : "Failed to load the tours"})
+        res.status(500).json({succes:false , messgae:"we could not load the tours"})
     }
 }
 
-const GetFeaturedTours = async(req , res) => {
-    try{
-        const tours = await Tour.find({featured : true}).populate('reviews').limit(8)
-        res.status(200).json({succes:true, message:"Featured Tours Loaded Succesfully" , data : tours})
-    }
-    catch(err){
-        res.status(500).json({succes:false, message:"Failed To Load Featured Tours"})
-    }
-    
-}
-
-
-const getTourCount = async(req , res) => {
-    try{
-        const tourCount = await Tour.estimatedDocumentCount()
-        res.status(200).json({succes : true , data : tourCount})
+const FeaturedTours = async(req , res) => {     
+    try {
+        const tours = await Tour.find({hello : true}).populate('reviews').limit(12)
+        res.status(200).json({succes:true , messgae : "featured tours fetched succesfully" , data : tours})
     }
     catch(err){
         console.log(err)
-        res.status(500).json({succes:false , message:"Failed to fetch the TourCount"})
-    }
+        res.status(500).json({succes:false,messgae :"we could not load the featured tours"})
+        }
 }
 module.exports = {
     CreateTour,
     UpdateTour,
     DeleteTour,
-    GetSingleTour,
-    GetAllTours,
-    GetTourBySearch,
-    GetFeaturedTours,
-    getTourCount
+    SingleTour,
+    Tours,
+    TourSearched,
+    FeaturedTours
 }

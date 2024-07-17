@@ -1,36 +1,35 @@
-import CommonSection from "../shared/CommonSection";
+import { useState, useEffect } from 'react';
+import CommonSection from '../shared/CommonSection';
 import '../styles/tour.css';
 import SearchBar from '../shared/SearchBar';
-import TourCrd from '../shared/TourCard';
-import NewsLetter from '../shared/Newsletter';
+import TourCard from '../shared/TourCard';
+import Newsletter from '../shared/Newsletter';
 import { Container, Row, Col } from 'reactstrap';
-import { useState, useEffect } from "react";
-import { BASE_URL } from "../utils/config";
-import useFetch from "../hooks/useFetch";
 
 const Tour = () => {
-    const [pageCount, setPageCount] = useState(0);
-    const [page, setPage] = useState(0);
-    const { data: AllTours, error, loading } = useFetch(`${BASE_URL}/tours/AllTours`);
-    
+    const [allTours, setAllTours] = useState([]);
+
     useEffect(() => {
-        if (AllTours) {
-            const pages = Math.ceil(AllTours.length / 4);
-            setPageCount(pages);
-        }
-    }, [AllTours]);
+        const fetchTours = async () => {
+            try {
+                const res = await fetch('http://localhost:8000/tours');
+                if (!res.ok) {
+                    throw new Error('Failed to fetch tours');
+                }
+                const result = await res.json();
+                setAllTours(result.data);
+            } catch (error) {
+                console.error('Error fetching tours:', error);
+                // Handle error state if needed
+            }
+        };
 
-    if (loading) {
-        return <p>Loading...</p>; // Display a loading indicator while fetching data
-    }
-
-    if (error) {
-        return <p>Error: {error.message}</p>; // Display an error message if fetching fails
-    }
+        fetchTours();
+    }, []); // Empty dependency array ensures this effect runs only once on component mount
 
     return (
         <>
-            <CommonSection title={"All Tours"} />
+            <CommonSection title="All Tours" />
             <section>
                 <Container>
                     <Row>
@@ -42,29 +41,14 @@ const Tour = () => {
             <section>
                 <Container>
                     <Row>
-                        {AllTours.map((tour, index) => (
-                            <Col lg='3' key={index}>
-                                <TourCrd tour={tour} />
+                        {allTours.map((tour, index) => (
+                            <Col lg="3" key={index}>
+                                <TourCard tour={tour} />
                             </Col>
                         ))}
                     </Row>
-                    <Row>
-                        <Col lg='12'>
-                            <div className="pagination d-flex align-items-center justify-content-center mt-4 gap-3">
-                                {[...Array(pageCount).keys()].map(number => (
-                                    <span
-                                        key={number}
-                                        onClick={() => setPage(number)}
-                                        className={page === number ? "active__page" : ""}
-                                    >
-                                        {number + 1}
-                                    </span>
-                                ))}
-                            </div>
-                        </Col>
-                    </Row>
                 </Container>
-                <NewsLetter />
+                <Newsletter />
             </section>
         </>
     );

@@ -1,32 +1,66 @@
 import './Booking.css';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState , useContext } from 'react';
 import { Form, FormGroup, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import {useNavigate} from 'react-router-dom'
-const Booking = ({ tour, AvgRating }) => {
-    const { price, reviews } = tour;
+import {AuthContext} from './../../context/AuthContext'
+const Booking =  ({ tour, AvgRating }) => {
+
+
+    const { price, reviews  , title} = tour;
+    const {user} = useContext(AuthContext)
     const navigate = useNavigate()
-    const [credentials , setCredentials] = useState({
-        userId : '0123',
-        userEmail : 'yousrabouhrizdaidj@gmail.com',
-        fullName:'bouhriz daidj yousra',
-        phone :'',
-        guestSize:1,
-        bookAt:''
+    const [Booking , setBooking] = useState({
+        userId : user && user._id,
+        email : user && user.email,
+        tourName : title,
+        fullName:'',
+        phone :null,
+        bookAt:'',
+        guestSize:null
     })
 
-    const handelChange = (e) => {
-        setCredentials(prev =>({...prev , [e.target.id]:e.target.value}))
+    const handelChange = async(e) => {
+        setBooking(prev =>({...prev , [e.target.id]:e.target.value}))
     }
 
-    const handelClick = e => {
+    const handelClick = async(e) => {
         e.preventDefault();
-        console.log(credentials)
+        try {
+            if(!user || user === undefined || user === null){
+                alert('you have to log in')
+            }
+            console.log(Booking)
+
+            const res = await fetch(`http://localhost:8000/booking` , {
+                method :'post',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                Booking : 'include',
+                body : JSON.stringify(Booking)
+
+
+                
+            })
+
+            const result = await res.json()
+
+            if(!res.ok){
+                alert(result.message)
+            }
+
+            alert(result.message)
+
+        }
+        catch(err){
+            alert(err.message)
+        }
         navigate("/thank-you")
     }
 
     const serviceFee = 10
-    const totalAmount = Number(price) * Number(credentials.guestSize) + Number(serviceFee)
+    const totalAmount = Number(price) * Number(Booking.guestSize) + Number(serviceFee)
 
     return (
         <div className='Booking'>
@@ -43,7 +77,6 @@ const Booking = ({ tour, AvgRating }) => {
                     <FormGroup>
                         <input type="text" placeholder='fullName' id='fullName' required onChange={handelChange} />
                     </FormGroup>
-
                     <FormGroup>
                         <input type="number" placeholder='Phone' id='phone' required onChange={handelChange} />
                     </FormGroup>

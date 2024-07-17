@@ -42,11 +42,10 @@ const tourSchema = new mongoose.Schema(
         ref: "Review",
       },
     ],
-
-    featured: {
-      type: Boolean,
-      default: false,
-    },
+    hello : {
+      type : Boolean,
+      required : true,
+    }
   },
   { timestamps: true }
 );

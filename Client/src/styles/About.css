@@ -1,0 +1,13 @@
+img{
+    width: 300px;
+    height: 250px;
+}
+
+
+.coucou h1{
+    color: var(--heading-color);
+    font-weight: bold;
+}
+.coucou p {
+    color: var(--primary-color);
+}

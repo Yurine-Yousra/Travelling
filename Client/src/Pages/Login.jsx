@@ -1,8 +1,11 @@
-import  { useState } from 'react';
+import  { useState , useContext } from 'react';
 import { Container, Row, Col, Form, FormGroup, Button } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate} from 'react-router-dom';
 import '../styles/Login.css';
-import LoginImg from '../assets/besbes/businessman-character-avatar-isolated.png';
+import LoginImg from '../assets/besbes/6333040.jpg';
+import {AuthContext} from  './../context/AuthContext'
+
+
 
 const Login = () => {
     const [credentials, setCredentials] = useState({
@@ -10,14 +13,40 @@ const Login = () => {
         password: ''
     });
 
+    const {dispatch} = useContext(AuthContext)
+    const navigate = useNavigate()
+
     const handleChange = (e) => {
         setCredentials(prev => ({ ...prev, [e.target.id]: e.target.value }));
     };
 
-    const handleClick = (e) => {
+    const handleClick = async (e) => {
         e.preventDefault();
-        // Handle login logic here
-        console.log(credentials); // Example: Log credentials to console
+        dispatch({type : 'LOGIN_START'}) 
+        try {
+            const res = await fetch('http://localhost:8000/users/Login' , {
+                method : 'post',
+                headers : {
+                    'Content-Type' : "Application/json"
+                },
+                credentials:'include',
+                body : JSON.stringify(credentials)
+            })
+            const result =await  res.json()
+            if (!res.ok) {
+                throw new Error(result.message);
+            }
+            dispatch({type : "LOGIN_SUCCESS" , payload : result.data.user})
+            localStorage.setItem('token', result.data.token);
+            console.log(localStorage.token)
+            navigate('/')
+        }
+        catch(err){
+            console.log(err)
+            dispatch({type : 'LOGIN_FAILURE' , payload : err.message})
+
+        }
+        // Example: Log credentials to console
     };
 
     return (

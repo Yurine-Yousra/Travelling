@@ -8,7 +8,7 @@ const VerifyUser = require('../utils/verifyToken').VerifyUser
 
 
 
-router.route('/:id').post( VerifyUser , CreateBooking)
+router.route('').post(CreateBooking)
 router.route('/Bookings/:id').get( VerifyUser , GetBooking)
 router.route('/Bookings').get(VerifyAdmin ,GetAllBookings)
 

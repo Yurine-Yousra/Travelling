@@ -3,8 +3,8 @@ const Review = require('../Models/Reviw')
 const CreateReview = async(req , res) => {
     const tourId = req.params.tourid; // Note the lowercase 'tourid'
 
-        const newReview = new Review({...req.body})
-        try{
+            try{
+                const newReview = new Review(req.body); // Use req.body directly
         console.log(tourId)
         const SavedReview = await newReview.save()
         //save the review in the array review of the tour
@@ -17,6 +17,16 @@ const CreateReview = async(req , res) => {
         }
 }
 
-module.exports = {
-    CreateReview
+const GetRewiews = async(req,res) => {
+    try {
+        const rewiews = await Review.find({}).limit(8)
+        res.status(200).json({succes:true,message:"reviws loaded succesfully" , data:rewiews})
+    }
+    catch(err){
+        res.status(500).json({succes:false,message:"failed to load the reviws"})
+    }
 }
+
+module.exports = {
+    CreateReview,
+    GetRewiews}

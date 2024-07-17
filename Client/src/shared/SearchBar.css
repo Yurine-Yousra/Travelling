@@ -6,35 +6,89 @@
     margin-top: 50px;
 }
 
-.form__groupe span{
+.form__group span{
     font-size: 1.8rem;
     color: #ee6e6e;
 }
 
-.form__groupe h6{
+.form__group h6{
     color: var(--heading-color);
 }
 
-.form__groupe input {
+.form__group input {
     border: none;
     font-style: 0.9rem;
     color: var(--heading-color);
     font-weight: 500;
 }
 
-.form__groupe input:focus {
+.form__group input:focus {
     outline: none;
 }
 
-.form__groupe-fast{
+.form__group-fast{
     border-right: 2px solid  #ee6e6e;
 }
 
 .search__icon i{
     font-size: 1.6rem;
-    padding: 0.5rem;
-    background-color: var(--secondary-color);
-    color: aliceblue;
+    padding-top: 1rem;
+    color: #ee6e6e;
     cursor: pointer;
 
 }
+.monButton{
+    display: none;
+}
+
+@media only  screen and (max-width:992px) {
+
+    .search__bar {
+        width: 100%;
+        flex-direction: column;
+        padding: 1.5rem;
+    }
+
+    .search__bar form {
+        flex-wrap: wrap;
+    }
+    .search__bar form .form__group {
+        width: 100%;
+    }
+
+    .form__group-fast{
+        border-right: none;
+    }
+
+    .monButton {
+        display: block;
+        background-color: var(--secondary-color);
+        padding: 1rem;
+        color: white;
+        border: none;
+        border-radius: 1rem;
+        width: 100%;
+    }
+
+    .search__icon{
+        display: none;
+    }
+}
+
+@media only  screen and (max-width:576px) {
+    .search__bar form .form__group {
+        width: 100%;
+    }
+
+    .form__group input{
+        font-size: 100%;
+    }
+
+    .form__group span i {
+        font-size: 1.1rem;
+    }
+
+    .form__group h6{
+        font-size: 1rem;
+    }
+    }

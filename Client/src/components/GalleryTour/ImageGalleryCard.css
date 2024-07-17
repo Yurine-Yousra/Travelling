@@ -5,3 +5,14 @@
 .my__image:hover{
     transform: scale(1.1);
 }
+
+
+@media only  screen and (max-width:992px) {
+    .my__image {
+        transition: none;
+        width: 90%;
+    }
+    .my__image:hover{
+        transform: none;
+    }
+}
