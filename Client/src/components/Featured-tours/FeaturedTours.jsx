@@ -3,7 +3,7 @@ import useFetch from '../../hooks/useFetch';
 import TourCard from "../../shared/TourCard";
 
 const FeaturedTours = () => {
-    const { data: featuredTours, error, loading } = useFetch(`http://localhost:8000/tours/featured`);
+    const { data: featuredTours, error, loading } = useFetch(`https://travelwebsiteserver.onrender.com/tours/featured`);
 
     if (loading) {
         return <p>Loading...</p>; // Display a loading indicator while fetching data

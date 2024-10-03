@@ -2,10 +2,11 @@ import './TourCrd.css';
 import PropTypes from 'prop-types';
 import { Card, CardBody } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import Imgohi from '../assets/besbes/aerial-view-lyon-from-top-notre-dame-de-fourviere.jpg'
 import CalculateAvgRating from "./../utils/AvgRatingCalculate"
 
 const TourCrd = ({ tour }) => {
-    const { _id, title, city, price, hello , reviews , photo } = tour;
+    const { _id, title, city, price, hello , reviews  } = tour;
     const {totalRating , avgRating} = CalculateAvgRating(reviews)
 
     // Constructing the path to the photo assuming it's in the correct folder
@@ -23,7 +24,7 @@ const TourCrd = ({ tour }) => {
     } 
 }}>
                 <div className='tour__img'>
-                    <img src={photo} alt="Tour" />
+                    <img src={Imgohi} alt="Tour" />
                     {hello && <span>Featured</span>}
                 </div>
                 <CardBody>

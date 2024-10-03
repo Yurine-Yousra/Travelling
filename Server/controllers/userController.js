@@ -6,8 +6,8 @@ const jwt = require('jsonwebtoken')
 
 const CreateNewUser = async(req , res) => {
     try{
-    const {username , email , password , photo , role} = req.body
-    if(!username || !email || !password || !role) {
+    const {username , email , password } = req.body
+    if(!username || !email || !password ) {
         res.status(500).json('Please Fill in All the required fields')
     }
     if(username && email && password){
@@ -20,9 +20,7 @@ const CreateNewUser = async(req , res) => {
         const NewUser = new User({
             email,
             username,
-            photo,
             password:HashedPassword,
-            role,
         })
         await NewUser.save()
         res.status(200).json({succes:true , message:"User Created Succesfully"})

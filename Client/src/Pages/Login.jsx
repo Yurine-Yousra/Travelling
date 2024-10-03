@@ -24,7 +24,7 @@ const Login = () => {
         e.preventDefault();
         dispatch({type : 'LOGIN_START'}) 
         try {
-            const res = await fetch('http://localhost:8000/users/Login' , {
+            const res = await fetch('https://travelwebsiteserver.onrender.com/users/Login' , {
                 method : 'post',
                 headers : {
                     'Content-Type' : "Application/json"

@@ -10,7 +10,7 @@ const Register = () => {
         username: '',
         email: '',
         password: '',
-        role:''
+        
     });
 
     const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Register = () => {
         e.preventDefault();
         
         try {
-            const res = await fetch(`http://localhost:8000/users/CreateUser`, {
+            const res = await fetch(`https://travelwebsiteserver.onrender.com/users/CreateUser`, {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -70,9 +70,6 @@ const Register = () => {
                                     </FormGroup>
                                     <FormGroup>
                                         <input type="password" placeholder='Password' required id="password" value={credentials.password} onChange={handleChange} />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <input type="text" placeholder='role' required id="role" value={credentials.role} onChange={handleChange} />
                                     </FormGroup>
                                     <Button className='btn secondary__btn' type='submit'>Register</Button>
                                 </Form>

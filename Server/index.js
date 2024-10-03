@@ -11,7 +11,6 @@ const bookingroutes = require('./routes/booking')
 
 dotenv.config();
 const app = express();
-const port =  8000;
 const corsOptions = {
     origin :true,
     credentials:true
@@ -28,15 +27,12 @@ app.use('/booking' , bookingroutes)
 
 // Database Connection
 mongoose.set("strictQuery" , false)
-const connectToDatabase = async () => {
-    try {
-        await mongoose.connect(process.env.URL)
-        console.log('Connected to the database of travels');
-    } catch (error) {
-        console.error('Error connecting to database:', error);
-        process.exit(1); // Exit the process on connection failure
-    }
-};
+
+
+
+const connectToDatabase = () => {
+    mongoose.connect(process.env.URL).then(() => console.log('you are connected to the databse'));}
+
 
 // Default Route
 app.get('/', (req, res) => {
@@ -44,8 +40,8 @@ app.get('/', (req, res) => {
 });
 
 // Start the server
-app.listen(port, () => {
+app.listen(process.env.PORT, () => {
     connectToDatabase();
-    console.log(`Server is listening on port ${port}`);
+    console.log(`Server is listening on port ${process.env.PORT}`);
 }
 )

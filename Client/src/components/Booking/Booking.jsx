@@ -32,7 +32,7 @@ const Booking =  ({ tour, AvgRating }) => {
             }
             console.log(Booking)
 
-            const res = await fetch(`http://localhost:8000/booking` , {
+            const res = await fetch(`https://travelwebsiteserver.onrender.com/booking` , {
                 method :'post',
                 headers: {
                     'Content-Type' : 'application/json'

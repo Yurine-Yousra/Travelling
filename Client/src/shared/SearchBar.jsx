@@ -19,7 +19,7 @@ const SearchBar = () => {
         }
 
         try {
-            const res = await fetch(`http://localhost:8000/tours/search?city=${location}&distance=${distance}&maxGroupSize=${maxGroupSize}`);
+            const res = await fetch(`https://travelwebsiteserver.onrender.com/tours/search?city=${location}&distance=${distance}&maxGroupSize=${maxGroupSize}`);
 
             if (!res.ok) {
                 throw new Error('Something went wrong!');

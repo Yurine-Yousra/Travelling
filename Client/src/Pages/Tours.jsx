@@ -12,7 +12,7 @@ const Tour = () => {
     useEffect(() => {
         const fetchTours = async () => {
             try {
-                const res = await fetch('http://localhost:8000/tours');
+                const res = await fetch('https://travelwebsiteserver.onrender.com/tours');
                 if (!res.ok) {
                     throw new Error('Failed to fetch tours');
                 }

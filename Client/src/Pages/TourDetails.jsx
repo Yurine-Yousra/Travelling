@@ -14,7 +14,7 @@ const TourDetails = () => {
     const [tour, setTour] = useState(null);
     const [tourRating, setTourRating] = useState(null);
     const {user } = useContext(AuthContext)
-    const { data: tourData, loading, error } = UseFetch(`http://localhost:8000/tours/tour/${id}`);
+    const { data: tourData, loading, error } = UseFetch(`https://travelwebsiteserver.onrender.com/tours/tour/${id}`);
     
     useEffect(() => {
         if (tourData) {
@@ -44,7 +44,7 @@ const TourDetails = () => {
 
             console.log(reviewObj)
 
-            const res = await fetch(`http://localhost:8000/reviews/${id}` , {
+            const res = await fetch(`https://travelwebsiteserver.onrender.com/reviews/${id}` , {
                 method :'post',
                 headers : {
                     "Content-Type" : "Application/json"

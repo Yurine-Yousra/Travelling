@@ -17,14 +17,6 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
 
-    photo: {
-      type: String,
-    },
-
-    role: {
-      type: String,
-      required:true,
-    },
   },
   { timestamps: true }
 );
